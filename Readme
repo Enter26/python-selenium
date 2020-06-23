@@ -1,0 +1,10 @@
+This script is used to sigin on a router webpage, 
+collect internet usage and signal strength.
+It is usig selenium driver for Firefox browser.
+The script insert obtained data into postgreSQL database.
+All credential are stored in external file 'env.py'.
+env.py is not attach to git repository.
+
+The script is running in every hour by cron, and monitor hourly 
+internet usage. It is possible to run it manually by command 
+'python router.py'
