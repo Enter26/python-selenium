@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import env
 import psycopg2
 import pyperclip
 from selenium import webdriver
@@ -8,21 +9,21 @@ from datetime import datetime
 
 #run webbrowser
 browser = webdriver.Firefox()
-browser.get('http://192.168.1.1')
+browser.get(env.url)
 
 #find text field
-login = browser.find_element_by_id('userName')
-passwd = browser.find_element_by_id('pcPassword')
+login = browser.find_element_by_id(env.login_element_id)
+passwd = browser.find_element_by_id(env.password_element_id)
 #insert credentials
-login.send_keys('admin')
-passwd.send_keys('admin')
+login.send_keys(env.login)
+passwd.send_keys(env.password)
 
 #login
-python_button = browser.find_elements_by_xpath("/html/body/div[2]/div[2]/div/label/span")[0]
+python_button = browser.find_elements_by_xpath(env.xpath)[0]
 python_button.click()
 
 #find mainPage
-frame = browser.find_element_by_id('mainFrame')
+frame = browser.find_element_by_id(env.frame)
 
 #copy all data from mainPage
 frame.send_keys(Keys.CONTROL + 'a')
@@ -54,7 +55,7 @@ print(signal_v[1])
 
 #connect to database
 try:
-    conn = psycopg2.connect(host="localhost", port="5432", database="router", user="postgres", password="P@ssw0rd")
+    conn = psycopg2.connect(host=env.host, port=env.port, database=env.db_name, user=env.db_user, password=env.db_password)
     print("Connected to database")
     
     cur = conn.cursor()
